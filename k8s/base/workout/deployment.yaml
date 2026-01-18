@@ -20,7 +20,7 @@ spec:
           image: ivakk/fitrack-workout:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080
+            - containerPort: 8082
           env:
             - name: SPRING_DATASOURCE_URL
               value: "jdbc:postgresql://workout-postgres:5432/workout_db"
@@ -39,12 +39,12 @@ spec:
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
-              port: 8080
+              port: 8081
             initialDelaySeconds: 15
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
-              port: 8080
+              port: 8081
             initialDelaySeconds: 30
             periodSeconds: 20
