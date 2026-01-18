@@ -14,7 +14,7 @@ spec:
               service:
                 name: iam
                 port:
-                  number: 8080
+                  number: 8081
     - host: workout.fitrack.local
       http:
         paths:
@@ -24,4 +24,4 @@ spec:
               service:
                 name: workout
                 port:
-                  number: 8080
+                  number: 8082
