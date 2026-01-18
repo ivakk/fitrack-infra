@@ -1,13 +1,50 @@
-env:
-  - name: SPRING_DATASOURCE_URL
-    value: "jdbc:postgresql://workout-postgres:5432/workout_db"
-  - name: SPRING_DATASOURCE_USERNAME
-    valueFrom:
-      secretKeyRef:
-        name: fitrack-secrets
-        key: WORKOUT_DB_USER
-  - name: SPRING_DATASOURCE_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: fitrack-secrets
-        key: WORKOUT_DB_PASSWORD
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fitrack-workout
+  namespace: fitrack
+  labels:
+    app: fitrack-workout
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fitrack-workout
+  template:
+    metadata:
+      labels:
+        app: fitrack-workout
+    spec:
+      containers:
+        - name: workout
+          image: registry.gitlab.com/ivakk/fitrack-workout:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://workout-postgres:5432/workout_db"
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: fitrack-secrets
+                  key: WORKOUT_DB_USER
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: fitrack-secrets
+                  key: WORKOUT_DB_PASSWORD
+            - name: IAM_BASE_URL
+              value: "http://iam:8080"
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20
