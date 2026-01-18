@@ -4,9 +4,9 @@ metadata:
   name: fitrack
   namespace: argocd
 spec:
-  project: fitrack
+  project: default
   source:
-    repoURL: <YOUR_FITRACK_INFRA_GIT_URL>
+    repoURL: https://github.com/ivakk/fitrack-infra.git
     targetRevision: main
     path: apps/children
   destination:
