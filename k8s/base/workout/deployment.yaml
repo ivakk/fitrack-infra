@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: workout
-          image: registry.gitlab.com/ivakk/fitrack-workout:latest
+          image: ivakk/fitrack-workout:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080

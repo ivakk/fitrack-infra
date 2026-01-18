@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: iam
-          image: registry.gitlab.com/ivakk/fitrack-iam:latest
+          image: ivakk/fitrack-iam:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
