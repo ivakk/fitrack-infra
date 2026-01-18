@@ -14,6 +14,7 @@ resources:
 
   - iam/service.yaml
   - iam/deployment.yaml
+  - iam/hpa.yaml
 
   - workout/service.yaml
   - workout/deployment.yaml
