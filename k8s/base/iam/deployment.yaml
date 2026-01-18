@@ -1,0 +1,13 @@
+env:
+  - name: SPRING_DATASOURCE_URL
+    value: "jdbc:postgresql://iam-postgres:5432/iam_db"
+  - name: SPRING_DATASOURCE_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: fitrack-secrets
+        key: IAM_DB_USER
+  - name: SPRING_DATASOURCE_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: fitrack-secrets
+        key: IAM_DB_PASSWORD

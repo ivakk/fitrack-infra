@@ -1,0 +1,16 @@
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - secrets.yaml
+
+  - postgres-iam/service.yaml
+  - postgres-iam/statefulset.yaml
+
+  - postgres-workout/service.yaml
+  - postgres-workout/statefulset.yaml
+
+  - iam/service.yaml
+  - iam/deployment.yaml
+
+  - workout/service.yaml
+  - workout/deployment.yaml

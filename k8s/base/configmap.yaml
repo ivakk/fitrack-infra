@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fitrack-config
+  namespace: fitrack
+data:
+  IAM_POSTGRES_HOST: "iam-postgres"
+  WORKOUT_POSTGRES_HOST: "workout-postgres"
+  POSTGRES_PORT: "5432"
+
+  IAM_BASE_URL: "http://iam:8080"

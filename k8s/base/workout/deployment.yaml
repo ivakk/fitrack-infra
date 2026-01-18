@@ -1,0 +1,13 @@
+env:
+  - name: SPRING_DATASOURCE_URL
+    value: "jdbc:postgresql://workout-postgres:5432/workout_db"
+  - name: SPRING_DATASOURCE_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: fitrack-secrets
+        key: WORKOUT_DB_USER
+  - name: SPRING_DATASOURCE_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: fitrack-secrets
+        key: WORKOUT_DB_PASSWORD
