@@ -6,7 +6,7 @@ metadata:
 spec:
   project: fitrack
   source:
-    repoURL: <YOUR_FITRACK_INFRA_GIT_URL>
+    repoURL: https://github.com/ivakk/fitrack-infra.git
     targetRevision: main
     path: k8s/overlays/dev
   destination:
