@@ -1,13 +1,53 @@
-env:
-  - name: SPRING_DATASOURCE_URL
-    value: "jdbc:postgresql://iam-postgres:5432/iam_db"
-  - name: SPRING_DATASOURCE_USERNAME
-    valueFrom:
-      secretKeyRef:
-        name: fitrack-secrets
-        key: IAM_DB_USER
-  - name: SPRING_DATASOURCE_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: fitrack-secrets
-        key: IAM_DB_PASSWORD
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fitrack-iam
+  namespace: fitrack
+  labels:
+    app: fitrack-iam
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fitrack-iam
+  template:
+    metadata:
+      labels:
+        app: fitrack-iam
+    spec:
+      containers:
+        - name: iam
+          image: registry.gitlab.com/ivakk/fitrack-iam:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://iam-postgres:5432/iam_db"
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: fitrack-secrets
+                  key: IAM_DB_USER
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: fitrack-secrets
+                  key: IAM_DB_PASSWORD
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: fitrack-secrets
+                  key: JWT_SECRET
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20
