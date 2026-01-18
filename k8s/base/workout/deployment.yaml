@@ -35,7 +35,7 @@ spec:
                   name: fitrack-secrets
                   key: WORKOUT_DB_PASSWORD
             - name: IAM_BASE_URL
-              value: "http://iam:8080"
+              value: "http://iam:8081"
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
